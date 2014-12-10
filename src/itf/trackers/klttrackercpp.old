@@ -1,0 +1,261 @@
+#include "itf/trackers/klttracker.h"
+
+
+#define REPLACE
+#define MAX_FEATURE_NUMBER  5000
+unsigned char _line_colos[6][3] =
+{
+	{0,255,0},
+	{0,0,255},
+	{255,255, 0},
+	{255,0,255},
+	{0,255,255},
+	{255,0,0},
+};
+
+int KLTtracker::init(int bsize,int w,int h)
+{
+	nFeatures = 215;
+	FOREGROUND_THRESHOLD = 0;
+	fgIndicator = (int*)malloc(sizeof(int) * nFeatures);
+	trkIndex = (int*)malloc(sizeof(int) * nFeatures);
+	trackBuff=std::vector<TrackBuff>(nFeatures);
+	for (int i=0;i<nFeatures;i++)
+	{
+		fgIndicator[i]=0;
+		trkIndex[i]=0;
+		trackBuff[i].init(50);
+	}
+	frame_width = w;
+	frame_height = h;
+	frameidx=0;
+	tc = KLTCreateTrackingContext();
+	fl = KLTCreateFeatureList(nFeatures);
+	tc->sequentialMode = TRUE;
+	tc->writeInternalImages = FALSE;
+	tc->affineConsistencyCheck = -1;  /* set this to 2 to turn on affine consistency check */
+	KLTSetVerbosity(0);
+	curMaxTrk=-1;
+	trkList.clear();
+	return 1;
+}
+int KLTtracker::selfinit(unsigned char* framedata)
+{
+	bgdata = new unsigned char[frame_width*frame_height];
+	memset(bgdata,0,frame_width*frame_height);
+	preframedata = new unsigned char[frame_width*frame_height];
+	memcpy(preframedata,framedata,frame_width*frame_height);
+	KLTSelectGoodFeatures(tc, framedata, frame_width, frame_height, fl);
+	KLTUpdateTCBorder(tc);
+	for (int k = 0; k < nFeatures; k++)
+	{
+		int x = min((int) (fl->feature[k]->x+0.5),frame_width);
+		int y = min((int) (fl->feature[k]->y+0.5),frame_height);
+		if (abs(framedata[y*frame_width+x]-bgdata[y*frame_width+x])>=FOREGROUND_THRESHOLD)
+		{
+			fgIndicator[k]=1;
+			curMaxTrk++;
+			trkIndex[k]=curMaxTrk;
+			single_point.x = (int) (fl->feature[k]->x+0.5);
+			single_point.y = (int) (fl->feature[k]->y+0.5);
+			single_point.t = 1;
+			single_trk.clear();
+			single_trk.push_back(single_point);
+			trkList.push_back(single_trk);
+		}
+	}
+}
+
+int KLTtracker::checkFG(int x,int y)
+{
+	return (abs(curframedata[y*frame_width+x]-bgdata[y*frame_width+x])>=FOREGROUND_THRESHOLD);
+}
+bool KLTtracker::checkTrackMoving(TrackBuff &strk)
+{
+	bool isTrkValid = true;
+	double maxdist = .0, dtmp = .0, x0 = .0, y0 = .0;
+	if(strk.len>20 && strk.data[2]==1)
+	{
+		for(int posi=strk.len-20;posi<strk.len;posi++)
+		{
+			int * iptr=strk.getPtr(posi);
+			dtmp = sqrt( pow(*iptr - x0, 2.0) + pow(*(iptr+1) - y0, 2.0));
+			if (dtmp > maxdist) maxdist = dtmp;
+		}
+		if (maxdist < 3.0) {isTrkValid = false;}
+	}
+	return isTrkValid;
+}
+int KLTtracker::updateAframe(unsigned char* framedata)
+{
+	frameidx++;
+	curframedata=framedata;
+	KLTTrackFeatures(tc, preframedata, framedata, frame_width, frame_height, fl);
+	KLTReplaceLostFeatures(tc, framedata, frame_width, frame_height, fl);
+	for (int k = 0; k < nFeatures; k++)
+	{
+		if ( fl->feature[k]->val== 0)
+		{
+			if (fgIndicator[k]==1)
+			{
+				int x = (int) (fl->feature[k]->x+0.5);
+				int y = (int) (fl->feature[k]->y+0.5);
+				int ptmp[3]={x,y,frameidx};
+				//trackBuff[k].updateAFrame(x,y,frameidx);
+				trackBuff[k].updateAFrame(ptmp);
+				bool isTrkValid=checkTrackMoving(trackBuff[k]);
+				if (!isTrkValid) {fgIndicator[k]=0;}
+			}
+		}
+		if ( fl->feature[k]->val> 0)
+		{
+			int x = (int) (fl->feature[k]->x);
+			int y = (int) (fl->feature[k]->y);
+			if(checkFG(x,y))
+			{
+
+				trackBuff[k].clear();
+				int ptmp[3]={x,y,frameidx};
+				//trackBuff[k].updateAFrame(x,y,frameidx);
+				trackBuff[k].updateAFrame(ptmp);
+				fgIndicator[k]=1;
+				bool isTrkValid=checkTrackMoving(trackBuff[k]);
+				if (!isTrkValid) {fgIndicator[k]=0;}
+			}
+			if (!checkFG(x,y)){fgIndicator[k]=0;}
+		}
+	}
+	/*
+	for (int k = 0; k < nFeatures; k++)
+	{
+		if ( fl->feature[k]->val== 0)
+		{
+			if (fgIndicator[k]==1)
+			{
+				single_point.x=int(fl->feature[k]->x+0.5);
+				single_point.y=int(fl->feature[k]->y+0.5);
+				single_point.t = 1;
+				trkList[trkIndex[k]].push_back(single_point);
+				bool isTrkValid = true;
+				double maxdist = .0, dtmp = .0, x0 = .0, y0 = .0;
+				Trk &strk = trkList[trkIndex[k]];
+				if (strk.size() > 20 && strk.back().t == 1)
+				{
+					int trkSz = strk.size();
+					x0 = strk.back().x;
+					y0 = strk.back().y;
+					for (int di = trkSz - 20; di < trkSz; ++di)
+					{
+						dtmp = sqrt( pow(strk[di].x - x0, 2.0) + pow(strk[di].y - y0, 2.0));
+						if (dtmp > maxdist) maxdist = dtmp;
+					}
+					if (maxdist < 3.0) {isTrkValid = false;}
+				}
+				if (!isTrkValid) {fgIndicator[k]=0;}
+			}
+		}
+
+		if ( fl->feature[k]->val> 0)
+		{
+			int x = (int) (fl->feature[k]->x);
+			int y = (int) (fl->feature[k]->y);
+			if (abs(framedata[y*frame_width+x]-bgdata[y*frame_width+x])>=FOREGROUND_THRESHOLD)
+			{
+				single_point.x = x;
+				single_point.y = y;
+				single_point.t = 1;
+				single_trk.clear();
+				single_trk.push_back(single_point);
+				trkList.push_back(single_trk);
+				curMaxTrk++;
+				fgIndicator[k]=1;
+				trkIndex[k]=curMaxTrk;
+
+				bool isTrkValid = true;
+				double maxdist = .0, dtmp = .0, x0 = .0, y0 = .0;
+				if (single_trk.size() > 20 && single_trk.back().t == 1)
+				{
+					int trkSz = single_trk.size();
+					x0 = single_trk.back().x;
+					y0 = single_trk.back().y;
+					for (int di = trkSz - 20; di < trkSz; ++di)
+					{
+						dtmp = sqrt( pow(single_trk[di].x - x0, 2.0) + pow(single_trk[di].y - y0, 2.0));
+						if (dtmp > maxdist) maxdist = dtmp;
+					}
+					if (maxdist < 3.0) {isTrkValid = false;}
+				}
+				if (!isTrkValid) {fgIndicator[k]=0;}
+			}
+			if (abs(framedata[y*frame_width+x]-bgdata[y*frame_width+x])< FOREGROUND_THRESHOLD){fgIndicator[k]=0;}
+		}
+    }
+    */
+    return 1;
+}
+void KLTtracker::drawline(unsigned char* cfarmeptr,int x1,int y1,int x2, int y2,unsigned char* rgb)
+{
+	int A[2]={x1,y1};
+	int B[2]={x2,y2};
+	int x,y;
+	int* x_idx=NULL;
+	int* y_idx=NULL;
+	int len=getLineIdx(&x_idx,&y_idx,A,B);
+	for(int i=0;i<len;i++)
+	{
+		x=x_idx[i];
+		y=y_idx[i];
+		if(x>=0&&y>=0&&x<frame_width&&y<frame_height)
+		{
+		cfarmeptr[(y*frame_width+x)*3]=rgb[0];
+		cfarmeptr[(y*frame_width+x)*3+1]=rgb[1];
+		cfarmeptr[(y*frame_width+x)*3+2]=rgb[2];
+		}
+	}
+	delete x_idx;
+	delete y_idx;
+}
+int KLTtracker::drawStuff(unsigned char* cfarmeptr)
+{
+	//Mat tmpcframe(frame_height,frame_width,CV_8UC3,cfarmeptr);
+	
+	for (int i = 0; i < nFeatures; ++i)
+	{
+		if (trackBuff[i].len > 5)
+		{
+			for (int j = 1; j <trackBuff[i].len; ++j)
+			{
+				int* aptr=trackBuff[i].getPtr(j-1);
+				int* bptr=trackBuff[i].getPtr(j);
+				int xa=*aptr,ya=*(aptr+1),xb=*bptr,yb=*(bptr+1);
+				//std::cout <<xa<<","<<ya<<","<<xb<<","<<yb<","<<std::endl;
+				double linelen = sqrt( pow(xa - xb, 2.0) + pow(ya - yb, 2.0));
+				//std::cout<<xa<<","<<xb<<","<<ya<<","<<yb<<","<<linelen<<std::endl;
+				drawline(cfarmeptr,*aptr,*(aptr+1),*bptr,*(bptr+1),_line_colos[i%6]);
+			}
+		}
+	}
+	
+	/*
+	for (int k = 0; k < nFeatures; ++k)
+	{
+		int i=trkIndex[k];
+		if (trkList[i].size() > 5)
+		{
+
+			for (int j = 1; j < trkList[i].size(); ++j)
+			{
+				//line(tmpcframe, Point(trkList[i][j-1].x,trkList[i][j-1].y), Point(trkList[i][j].x,trkList[i][j].y), _line_colos[i%6]);
+				drawline(cfarmeptr,trkList[i][j-1].x,trkList[i][j-1].y,trkList[i][j].x,trkList[i][j].y,_line_colos[i%6]);
+			}
+		}
+	}
+	*/
+	//imshow("result", tmpcframe);
+	//waitKey(1);
+	return 1;
+}
+int KLTtracker::endTraking()
+{
+  return 0;
+}
