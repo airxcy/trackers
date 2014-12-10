@@ -42,6 +42,7 @@ int KLTtracker::init(int bsize,int w,int h)
 	KLTSetVerbosity(0);
 	drawW=frame_width,drawH=frame_height;
 	bgMod=0;
+	delay=0;
 	return 1;
 }
 int KLTtracker::selfinit(unsigned char* framedata)

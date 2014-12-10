@@ -26,6 +26,7 @@ public:
 	int FOREGROUND_THRESHOLD;
 	int curMaxTrk;
 	int drawW,drawH;
+	int delay;
 	unsigned char* preframedata,* bgdata,*curframedata;
 
 	std::vector<TrackBuff> trackBuff;
