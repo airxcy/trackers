@@ -25,7 +25,7 @@ int KLTtracker::init(int bsize,int w,int h)
 	{
 		isTracking[i]=0;
 		trkIndex[i]=0;
-		trackBuff[i].init(3,100);
+		trackBuff[i].init(3,10);
 	}
 	frame_width = w;
 	frame_height = h;
@@ -173,6 +173,7 @@ void KLTtracker::drawline(unsigned char* cfarmeptr,int x1,int y1,int x2, int y2,
 	int B[2]={x2,y2};
 	int x,y,offset;
 	int* x_idx=NULL, *y_idx=NULL;
+	//std::cout << x1 << "," << y1 << "," << x2 << "," << y2 << std::endl;
 	int len=getLineIdx(&x_idx,&y_idx,A,B);
 	for(int i=0;i<len;i++)
 	{
@@ -186,8 +187,8 @@ void KLTtracker::drawline(unsigned char* cfarmeptr,int x1,int y1,int x2, int y2,
 		cfarmeptr[offset*3+2]=rgb[2];
 		//}
 	}
-	delete x_idx;
-	delete y_idx;
+	free( x_idx);
+	free(y_idx);
 }
 
 void KLTtracker::drawStuff(unsigned char* cfarmeptr)
