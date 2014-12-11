@@ -33,9 +33,9 @@ int main(int argc, char** argv )
 	namedWindow("result");
 while(1)
 {
-	std::string vidfname=argv[1];
+	std::string vidfname = argv[1];
 	std::string gtdir="";
-	int bgmod=stoi(argv[2]);
+	int bgmod =  stoi(argv[2]);
 	VideoCapture cap;
 	int frameidx=0;
 	char fnamestr[100];
