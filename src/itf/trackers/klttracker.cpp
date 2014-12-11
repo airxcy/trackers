@@ -25,7 +25,7 @@ int KLTtracker::init(int bsize,int w,int h)
 	{
 		isTracking[i]=0;
 		trkIndex[i]=0;
-		trackBuff[i].init(100);
+		trackBuff[i].init(3,100);
 	}
 	frame_width = w;
 	frame_height = h;
@@ -103,13 +103,13 @@ bool KLTtracker::checkTrackMoving(TrackBuff &strk)
 	double maxdist = .0, dtmp = .0,totlen=.0;
 
 	int * aptr=strk.getPtr(0),*bptr=aptr;
-	int xa=(*aptr),ya=(*(aptr+1)),xb=*(strk.cur_frame_ptr),yb=*(strk.cur_frame_ptr+1);
-	//std::cout<<xa<<"_"<<ya<<"_"<<xb<o<"_"<<yb<<"|";
+	//int xa=(*aptr),ya=(*(aptr+1)),xb=*(strk.cur_frame_ptr),yb=*(strk.cur_frame_ptr+1);
+	int xa=aptr[0],ya=aptr[1],xb=strk.cur_frame_ptr[0],yb=strk.cur_frame_ptr[1];
 	double displc=sqrt( pow(xb-xa, 2.0) + pow(yb-ya, 2.0));
 	for(int posi=0;posi<strk.len;posi++)
 	{
 		bptr=strk.getPtr(posi);
-		xb=(*bptr),yb=(*(bptr+1));
+		xb=bptr[0],yb=bptr[1];
 		dtmp = sqrt( pow(xb-xa, 2.0) + pow(yb-ya, 2.0));
 		totlen+=dtmp;
 		if (dtmp > maxdist&&posi>=startidx) maxdist = dtmp;
@@ -117,7 +117,7 @@ bool KLTtracker::checkTrackMoving(TrackBuff &strk)
 	}
 	
 	//if(strk.len>20&&totlen*0.5>displc){isTrkValid = false;std::cout<<totlen<<"_"<<displc<<"|";}
-	if (maxdist < 1.4&&strk.len>30){isTrkValid = false;}
+	if (maxdist < 1.4 && strk.len>30){isTrkValid = false;}
 	if (maxdist <=0.1 && strk.len>=minlen){isTrkValid = false;}
 
 	return isTrkValid;
@@ -201,7 +201,7 @@ void KLTtracker::drawStuff(unsigned char* cfarmeptr)
 			{
 				int *aptr=trackBuff[i].getPtr(j-1);
 				int *bptr=trackBuff[i].getPtr(j);
-				drawline(cfarmeptr,*aptr,*(aptr+1),*bptr,*(bptr+1),_line_colos[i%6]);
+				drawline(cfarmeptr,aptr[0],aptr[1],bptr[0],bptr[1],_line_colos[i%6]);
 			}
 		}
 	}
@@ -215,7 +215,6 @@ void KLTtracker::drawStuffScale(unsigned char* cfarmeptr,int w,int h)
 	double scaleW=((double)drawW)/((double)frame_width);
 	double scaleH=((double)drawH)/((double)frame_height);
 	Mat	 frameMat(drawH, drawW, CV_8UC3, cfarmeptr);
-	int xa,xb,ya,yb,fval=0;
 	/*
 	if(checkt==0&&trackBuff[checkidx].len>10)
 	{
@@ -249,15 +248,15 @@ void KLTtracker::drawStuffScale(unsigned char* cfarmeptr,int w,int h)
 		{
 			double maxdist = .0, dtmp = .0,totlen=.0;	
 			int * aptr=trackBuff[i].getPtr(0),*bptr=aptr;
-			int xa=(*aptr),ya=(*(aptr+1)),xb=*(trackBuff[i].cur_frame_ptr),yb=*(trackBuff[i].cur_frame_ptr+1);
+			int xa=aptr[0],ya=aptr[1],xb=trackBuff[i].cur_frame_ptr[0],yb=trackBuff[i].cur_frame_ptr[1];
 			double displc=sqrt( pow(xb-xa, 2.0) + pow(yb-ya, 2.0));
 			for (int j = 1; j <trackBuff[i].len; ++j)
 			{
 				aptr=trackBuff[i].getPtr(j-1);
 				bptr=trackBuff[i].getPtr(j);
-				xa=(*aptr)*scaleW,xb=(*bptr)*scaleW,ya=(*(aptr+1))*scaleH,yb=(*(bptr+1))*scaleH;
+				xa=aptr[0]*scaleW,xb=bptr[0]*scaleW,ya=aptr[1]*scaleH,yb=bptr[1]*scaleH;
 				//drawline(cfarmeptr,xa,ya,xb,yb,_line_colos[i%6]);
-				dtmp= sqrt( pow((*bptr)-(*aptr), 2.0) + pow((*(bptr+1))-(*(aptr+1)), 2.0));
+				dtmp= sqrt( pow(bptr[0]-aptr[0], 2.0) + pow(bptr[1]-aptr[1], 2.0));
 				totlen+=dtmp;
 				if(dtmp>maxdist)maxdist=dtmp;
 			}
@@ -275,7 +274,7 @@ void KLTtracker::drawStuffScale(unsigned char* cfarmeptr,int w,int h)
 			{
 				aptr=trackBuff[i].getPtr(j-1);
 				bptr=trackBuff[i].getPtr(j);
-				xa=(*aptr)*scaleW,xb=(*bptr)*scaleW,ya=(*(aptr+1))*scaleH,yb=(*(bptr+1))*scaleH;
+				xa=aptr[0]*scaleW,xb=bptr[0]*scaleW,ya=aptr[1]*scaleH,yb=bptr[1]*scaleH;
 				drawline(cfarmeptr,xa,ya,xb,yb,rgb);
 			}
 			sprintf(strbuff,"%.1f,%.1f",displc,totlen);

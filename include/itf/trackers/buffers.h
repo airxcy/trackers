@@ -34,8 +34,8 @@ public:
 class TrackBuff :  public QueBuff<int>
 {
 public:
-	TrackBuff();
-	bool init(int l);
+	//TrackBuff();
+	//bool init(int l);
 	//void updateAFrame(int x,int y,int t);
 };
 #endif

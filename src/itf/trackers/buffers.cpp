@@ -75,14 +75,6 @@ bool FrameBuff::init(int bsize,int w, int h,int l)
 	return QueBuff::init(elem_byte_size*width*height,l);
 }
 
-TrackBuff::TrackBuff()
-{
-}
-bool TrackBuff::init(int l)
-{
-	QueBuff<int>::init(3,l);
-	return true;
-}
 /*
 void TrackBuff::updateAFrame(int x,int y,int t)
 {
