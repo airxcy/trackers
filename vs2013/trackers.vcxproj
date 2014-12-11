@@ -78,21 +78,21 @@
     <None Include="build\examples\utest.bin" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\itf\trackers\buffers.h" />
-    <ClInclude Include="include\itf\trackers\klttracker.h" />
-    <ClInclude Include="include\itf\trackers\klt_c\base.h" />
-    <ClInclude Include="include\itf\trackers\klt_c\convolve.h" />
-    <ClInclude Include="include\itf\trackers\klt_c\error.h" />
-    <ClInclude Include="include\itf\trackers\klt_c\klt.h" />
-    <ClInclude Include="include\itf\trackers\klt_c\klt_util.h" />
-    <ClInclude Include="include\itf\trackers\klt_c\pnmio.h" />
-    <ClInclude Include="include\itf\trackers\klt_c\pyramid.h" />
-    <ClInclude Include="include\itf\trackers\klt_c\stdafx.h" />
-    <ClInclude Include="include\itf\trackers\klt_c\targetver.h" />
-    <ClInclude Include="include\itf\trackers\klt_c\trk.h" />
-    <ClInclude Include="include\itf\trackers\mytracker.h" />
-    <ClInclude Include="include\itf\trackers\tracker.h" />
-    <ClInclude Include="include\itf\trackers\utils.h" />
+    <ClInclude Include="..\include\itf\trackers\buffers.h" />
+    <ClInclude Include="..\include\itf\trackers\klttracker.h" />
+    <ClInclude Include="..\include\itf\trackers\klt_c\base.h" />
+    <ClInclude Include="..\include\itf\trackers\klt_c\convolve.h" />
+    <ClInclude Include="..\include\itf\trackers\klt_c\error.h" />
+    <ClInclude Include="..\include\itf\trackers\klt_c\klt.h" />
+    <ClInclude Include="..\include\itf\trackers\klt_c\klt_util.h" />
+    <ClInclude Include="..\include\itf\trackers\klt_c\pnmio.h" />
+    <ClInclude Include="..\include\itf\trackers\klt_c\pyramid.h" />
+    <ClInclude Include="..\include\itf\trackers\klt_c\stdafx.h" />
+    <ClInclude Include="..\include\itf\trackers\klt_c\targetver.h" />
+    <ClInclude Include="..\include\itf\trackers\klt_c\trk.h" />
+    <ClInclude Include="..\include\itf\trackers\mytracker.h" />
+    <ClInclude Include="..\include\itf\trackers\tracker.h" />
+    <ClInclude Include="..\include\itf\trackers\utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\examples\cvtest.cpp" />

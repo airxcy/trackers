@@ -13,6 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
+    <Filter Include="Header Files\klt_c">
+      <UniqueIdentifier>{d085a926-a937-4975-8af3-54f93a0cb0ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\klt_c">
+      <UniqueIdentifier>{bd27482a-7099-4af7-9d49-4c5a937d6879}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\examples">
+      <UniqueIdentifier>{8064f838-60eb-4d66-aa54-124ee28052ab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="build\examples\cvtest.bin">
@@ -23,90 +32,90 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\itf\trackers\buffers.h">
+    <ClInclude Include="..\include\itf\trackers\klt_c\base.h">
+      <Filter>Header Files\klt_c</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\itf\trackers\klt_c\convolve.h">
+      <Filter>Header Files\klt_c</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\itf\trackers\klt_c\error.h">
+      <Filter>Header Files\klt_c</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\itf\trackers\klt_c\klt.h">
+      <Filter>Header Files\klt_c</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\itf\trackers\klt_c\klt_util.h">
+      <Filter>Header Files\klt_c</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\itf\trackers\klt_c\pnmio.h">
+      <Filter>Header Files\klt_c</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\itf\trackers\klt_c\pyramid.h">
+      <Filter>Header Files\klt_c</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\itf\trackers\klt_c\stdafx.h">
+      <Filter>Header Files\klt_c</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\itf\trackers\klt_c\targetver.h">
+      <Filter>Header Files\klt_c</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\itf\trackers\klt_c\trk.h">
+      <Filter>Header Files\klt_c</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\itf\trackers\buffers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\itf\trackers\klttracker.h">
+    <ClInclude Include="..\include\itf\trackers\klttracker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\itf\trackers\mytracker.h">
+    <ClInclude Include="..\include\itf\trackers\mytracker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\itf\trackers\tracker.h">
+    <ClInclude Include="..\include\itf\trackers\tracker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\itf\trackers\utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\itf\trackers\klt_c\base.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\itf\trackers\klt_c\convolve.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\itf\trackers\klt_c\error.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\itf\trackers\klt_c\klt.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\itf\trackers\klt_c\klt_util.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\itf\trackers\klt_c\pnmio.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\itf\trackers\klt_c\pyramid.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\itf\trackers\klt_c\stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\itf\trackers\klt_c\targetver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\itf\trackers\klt_c\trk.h">
+    <ClInclude Include="..\include\itf\trackers\utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\itf\trackers\klt_c\convolve.cpp">
+      <Filter>Source Files\klt_c</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\itf\trackers\klt_c\error.cpp">
+      <Filter>Source Files\klt_c</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\itf\trackers\klt_c\klt.cpp">
+      <Filter>Source Files\klt_c</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\itf\trackers\klt_c\klt_util.cpp">
+      <Filter>Source Files\klt_c</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\itf\trackers\klt_c\pnmio.cpp">
+      <Filter>Source Files\klt_c</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\itf\trackers\klt_c\pyramid.cpp">
+      <Filter>Source Files\klt_c</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\itf\trackers\klt_c\selectGoodFeatures.cpp">
+      <Filter>Source Files\klt_c</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\itf\trackers\klt_c\storeFeatures.cpp">
+      <Filter>Source Files\klt_c</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\itf\trackers\klt_c\trackFeatures.cpp">
+      <Filter>Source Files\klt_c</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\itf\trackers\klt_c\trk.cpp">
+      <Filter>Source Files\klt_c</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\itf\trackers\klt_c\writeFeatures.cpp">
+      <Filter>Source Files\klt_c</Filter>
+    </ClCompile>
     <ClCompile Include="..\src\itf\trackers\buffers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\itf\trackers\klttracker.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\itf\trackers\klt_c\convolve.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\itf\trackers\klt_c\error.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\itf\trackers\klt_c\klt.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\itf\trackers\klt_c\klt_util.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\itf\trackers\klt_c\pnmio.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\itf\trackers\klt_c\pyramid.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\itf\trackers\klt_c\selectGoodFeatures.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\itf\trackers\klt_c\storeFeatures.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\itf\trackers\klt_c\trackFeatures.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\itf\trackers\klt_c\trk.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\itf\trackers\klt_c\writeFeatures.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\itf\trackers\mytrackerKLT.cpp">
@@ -116,7 +125,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\examples\cvtest.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\examples</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

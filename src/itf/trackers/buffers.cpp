@@ -1,28 +1,28 @@
 #include "itf/trackers/buffers.h"
 
-template <typename ptr_T>
-QueBuff<ptr_T>::QueBuff()
+template <typename ELEM_T>
+QueBuff<ELEM_T>::QueBuff()
 {
 	headidx=0;tailidx=0;
 	headptr=NULL,tailptr=NULL,cur_frame_ptr=NULL,data=NULL;
 }
 
-template <typename ptr_T>
-bool QueBuff<ptr_T>::init(int fbsize,int l)
+template <typename ELEM_T>
+bool QueBuff<ELEM_T>::init(int fbsize,int l)
 {
 	headidx=0;tailidx=0;
 	frame_step_size=fbsize;
-	frame_byte_size=frame_step_size*sizeof(ptr_T);
+	frame_byte_size=frame_step_size*sizeof(ELEM_T);
 	que_len=l;
-	data=new ptr_T[frame_step_size*que_len];
+	data=new ELEM_T[frame_step_size*que_len];
 	len=0;
 	headptr=data+headidx*frame_step_size;
 	tailptr=data+tailidx*frame_step_size;
 	cur_frame_ptr=tailptr;
 	return true;
 }
-template <typename ptr_T>
-void QueBuff<ptr_T>::clear()
+template <typename ELEM_T>
+void QueBuff<ELEM_T>::clear()
 {
 	headidx=0;tailidx=0;
 	headptr=data+headidx*frame_step_size;
@@ -31,8 +31,8 @@ void QueBuff<ptr_T>::clear()
 	len=0;
 }
 
-template <typename ptr_T>
-void QueBuff<ptr_T>::increPtr()
+template <typename ELEM_T>
+void QueBuff<ELEM_T>::increPtr()
 {
 	tailidx=(tailidx+1)%que_len;
 	if(tailidx==headidx)
@@ -47,16 +47,16 @@ void QueBuff<ptr_T>::increPtr()
 	headptr=data+headidx*frame_step_size;
 	tailptr=data+tailidx*frame_step_size;
 }
-template <typename ptr_T>
-void QueBuff<ptr_T>::updateAFrame(ptr_T* new_frame_ptr)
+template <typename ELEM_T>
+void QueBuff<ELEM_T>::updateAFrame(ELEM_T* new_frame_ptr)
 {
 	memcpy(tailptr,new_frame_ptr,frame_byte_size);
 	increPtr();
 }
-template <typename ptr_T>
-ptr_T *QueBuff<ptr_T>::getPtr(int i)
+template <typename ELEM_T>
+ELEM_T *QueBuff<ELEM_T>::getPtr(int i)
 {
-	ptr_T* ptr= data+(headidx+i)%que_len*frame_step_size;
+	ELEM_T* ptr= data+(headidx+i)%que_len*frame_step_size;
 	return ptr;
 }
 template class QueBuff<BYTE>;
