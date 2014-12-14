@@ -142,6 +142,7 @@ bool FrameBuff::init(int bsize,int w, int h,int l)
 	return QueBuff::init(elem_byte_size*width*height,l);
 }
 
+template class Buff < TrkPts >;
 /*
 void TrackBuff::updateAFrame(int x,int y,int t)
 {

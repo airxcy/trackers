@@ -1,0 +1,131 @@
+﻿Build started 12/14/2014 8:04:39 PM.
+     1>Project "C:\Users\xcy\Documents\GitHub\trackers\vs2013\trackers.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oy- /D WIN32 /D NDEBUG /D _WINDOWS /Gm- /EHsc /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\examples\cvtest.cpp ..\src\itf\trackers\buffers.cpp ..\src\itf\trackers\klttracker.cpp ..\src\itf\trackers\klt_c\convolve.cpp ..\src\itf\trackers\klt_c\klt.cpp ..\src\itf\trackers\klt_c\klt_util.cpp ..\src\itf\trackers\klt_c\pnmio.cpp ..\src\itf\trackers\klt_c\pyramid.cpp ..\src\itf\trackers\klt_c\selectGoodFeatures.cpp ..\src\itf\trackers\klt_c\storeFeatures.cpp ..\src\itf\trackers\klt_c\trackFeatures.cpp ..\src\itf\trackers\klt_c\trk.cpp ..\src\itf\trackers\klt_c\writeFeatures.cpp ..\src\itf\trackers\mytrackerKLT.cpp ..\src\itf\trackers\utils.cpp
+         cvtest.cpp
+     1>..\examples\cvtest.cpp(85): warning C4804: '~' : unsafe use of type 'bool' in operation
+     1>..\examples\cvtest.cpp(91): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+         buffers.cpp
+         klttracker.cpp
+     1>..\src\itf\trackers\klttracker.cpp(86): warning C4101: 'y' : unreferenced local variable
+     1>..\src\itf\trackers\klttracker.cpp(86): warning C4101: 'x' : unreferenced local variable
+     1>..\src\itf\trackers\klttracker.cpp(275): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\src\itf\trackers\klttracker.cpp(281): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>..\src\itf\trackers\klttracker.cpp(282): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>..\src\itf\trackers\klttracker.cpp(295): warning C4244: '=' : conversion from 'float' to 'unsigned char', possible loss of data
+     1>..\src\itf\trackers\klttracker.cpp(296): warning C4244: '=' : conversion from 'float' to 'unsigned char', possible loss of data
+     1>..\src\itf\trackers\klttracker.cpp(297): warning C4244: '=' : conversion from 'float' to 'unsigned char', possible loss of data
+         convolve.cpp
+         klt.cpp
+         klt_util.cpp
+         pnmio.cpp
+     1>..\src\itf\trackers\klt_c\pnmio.cpp(29): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
+     1>..\src\itf\trackers\klt_c\pnmio.cpp(59): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(304) : see declaration of 'sscanf'
+     1>..\src\itf\trackers\klt_c\pnmio.cpp(125): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
+     1>..\src\itf\trackers\klt_c\pnmio.cpp(149): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
+     1>..\src\itf\trackers\klt_c\pnmio.cpp(215): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
+     1>..\src\itf\trackers\klt_c\pnmio.cpp(266): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
+     1>..\src\itf\trackers\klt_c\pnmio.cpp(323): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
+         pyramid.cpp
+         selectGoodFeatures.cpp
+         storeFeatures.cpp
+     1>..\src\itf\trackers\klt_c\storeFeatures.cpp(20): warning C4101: 'feat' : unreferenced local variable
+         trackFeatures.cpp
+     1>..\src\itf\trackers\klt_c\trackFeatures.cpp(1327): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\src\itf\trackers\klt_c\trackFeatures.cpp(1329): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\src\itf\trackers\klt_c\trackFeatures.cpp(1331): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\src\itf\trackers\klt_c\trackFeatures.cpp(1333): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\src\itf\trackers\klt_c\trackFeatures.cpp(1335): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\src\itf\trackers\klt_c\trackFeatures.cpp(1337): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+         trk.cpp
+         writeFeatures.cpp
+     1>..\src\itf\trackers\klt_c\writeFeatures.cpp(104): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
+     1>..\src\itf\trackers\klt_c\writeFeatures.cpp(117): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\src\itf\trackers\klt_c\writeFeatures.cpp(129): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
+     1>..\src\itf\trackers\klt_c\writeFeatures.cpp(152): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>..\src\itf\trackers\klt_c\writeFeatures.cpp(191): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(304) : see declaration of 'sscanf'
+     1>..\src\itf\trackers\klt_c\writeFeatures.cpp(514): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
+     1>..\src\itf\trackers\klt_c\writeFeatures.cpp(522): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
+     1>..\src\itf\trackers\klt_c\writeFeatures.cpp(526): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
+     1>..\src\itf\trackers\klt_c\writeFeatures.cpp(527): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
+     1>..\src\itf\trackers\klt_c\writeFeatures.cpp(531): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
+     1>..\src\itf\trackers\klt_c\writeFeatures.cpp(535): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
+     1>..\src\itf\trackers\klt_c\writeFeatures.cpp(539): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
+     1>..\src\itf\trackers\klt_c\writeFeatures.cpp(543): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
+     1>..\src\itf\trackers\klt_c\writeFeatures.cpp(560): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
+     1>..\src\itf\trackers\klt_c\writeFeatures.cpp(595): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
+     1>..\src\itf\trackers\klt_c\writeFeatures.cpp(619): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
+     1>..\src\itf\trackers\klt_c\writeFeatures.cpp(648): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
+     1>..\src\itf\trackers\klt_c\writeFeatures.cpp(670): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
+     1>..\src\itf\trackers\klt_c\writeFeatures.cpp(701): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
+     1>..\src\itf\trackers\klt_c\writeFeatures.cpp(725): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(230) : see declaration of 'fscanf'
+         mytrackerKLT.cpp
+     1>..\src\itf\trackers\mytrackerKLT.cpp(54): warning C4018: '<' : signed/unsigned mismatch
+     1>..\src\itf\trackers\mytrackerKLT.cpp(110): warning C4018: '<' : signed/unsigned mismatch
+     1>..\src\itf\trackers\mytrackerKLT.cpp(155): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>..\src\itf\trackers\mytrackerKLT.cpp(159): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>..\src\itf\trackers\mytrackerKLT.cpp(261): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+     1>..\src\itf\trackers\mytrackerKLT.cpp(285): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+         utils.cpp
+         Generating Code...
+     1>c:\users\xcy\documents\github\trackers\src\itf\trackers\mytrackerklt.cpp(156): warning C4700: uninitialized local variable 'x' used
+     1>c:\users\xcy\documents\github\trackers\src\itf\trackers\mytrackerklt.cpp(156): warning C4700: uninitialized local variable 'y' used
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\xcy\Documents\GitHub\trackers\vs2013\Release\trackers.exe" /INCREMENTAL /NOLOGO opencv_calib3d249.lib opencv_contrib249.lib opencv_core249.lib opencv_features2d249.lib opencv_flann249.lib opencv_gpu249.lib opencv_highgui249.lib opencv_imgproc249.lib opencv_legacy249.lib opencv_ml249.lib opencv_nonfree249.lib opencv_objdetect249.lib opencv_ocl249.lib opencv_photo249.lib opencv_stitching249.lib opencv_superres249.lib opencv_ts249.lib opencv_video249.lib opencv_videostab249.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\xcy\Documents\GitHub\trackers\vs2013\Release\trackers.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /TLBID:1 /ENTRY:"mainCRTStartup" /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\xcy\Documents\GitHub\trackers\vs2013\Release\trackers.lib" /MACHINE:X86 /SAFESEH Release\cvtest.obj
+         Release\buffers.obj
+         Release\klttracker.obj
+         Release\convolve.obj
+         Release\error.obj
+         Release\klt.obj
+         Release\klt_util.obj
+         Release\pnmio.obj
+         Release\pyramid.obj
+         Release\selectGoodFeatures.obj
+         Release\storeFeatures.obj
+         Release\trackFeatures.obj
+         Release\trk.obj
+         Release\writeFeatures.obj
+         Release\mytrackerKLT.obj
+         Release\utils.obj
+     1>LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/OPT:ICF' specification
+         trackers.vcxproj -> C:\Users\xcy\Documents\GitHub\trackers\vs2013\Release\trackers.exe
+     1>Done Building Project "C:\Users\xcy\Documents\GitHub\trackers\vs2013\trackers.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:05.34

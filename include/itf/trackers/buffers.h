@@ -52,12 +52,14 @@ public:
 	bool init(int bsize,int w, int h,int l);
 };
 
-class TrackBuff :  public Buff<int>
+typedef struct {
+	int x;
+	int y;
+	int t;
+} TrkPts, *TrkPts_p;
+
+class TrackBuff : public Buff<TrkPts>
 {
 public:
-	//TrackBuff();
-	//bool init(int l);
-	//void updateAFrame(int x,int y,int t);
 };
-
 #endif

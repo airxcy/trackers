@@ -1,5 +1,6 @@
 c:\users\xcy\documents\github\trackers\vs2013\debug\vc120.pdb
 c:\users\xcy\documents\github\trackers\vs2013\debug\vc120.idb
+c:\users\xcy\documents\github\trackers\vs2013\debug\cvtest.obj
 c:\users\xcy\documents\github\trackers\vs2013\debug\buffers.obj
 c:\users\xcy\documents\github\trackers\vs2013\debug\klttracker.obj
 c:\users\xcy\documents\github\trackers\vs2013\debug\convolve.obj
@@ -15,13 +16,16 @@ c:\users\xcy\documents\github\trackers\vs2013\debug\trk.obj
 c:\users\xcy\documents\github\trackers\vs2013\debug\writefeatures.obj
 c:\users\xcy\documents\github\trackers\vs2013\debug\mytrackerklt.obj
 c:\users\xcy\documents\github\trackers\vs2013\debug\utils.obj
-c:\users\xcy\documents\github\trackers\vs2013\debug\cvtest.obj
-c:\users\xcy\documents\github\trackers\vs2013\debug\trackers.ilk
-c:\users\xcy\documents\github\trackers\vs2013\debug\trackers.exe
 c:\users\xcy\documents\github\trackers\vs2013\debug\trackers.pdb
 c:\users\xcy\documents\github\trackers\vs2013\debug\trackers.tlog\cl.command.1.tlog
 c:\users\xcy\documents\github\trackers\vs2013\debug\trackers.tlog\cl.read.1.tlog
 c:\users\xcy\documents\github\trackers\vs2013\debug\trackers.tlog\cl.write.1.tlog
+c:\users\xcy\documents\github\trackers\vs2013\debug\trackers.tlog\link.3892-cvtres.read.1.tlog
+c:\users\xcy\documents\github\trackers\vs2013\debug\trackers.tlog\link.3892-cvtres.write.1.tlog
+c:\users\xcy\documents\github\trackers\vs2013\debug\trackers.tlog\link.3892-rc.read.1.tlog
+c:\users\xcy\documents\github\trackers\vs2013\debug\trackers.tlog\link.3892-rc.write.1.tlog
+c:\users\xcy\documents\github\trackers\vs2013\debug\trackers.tlog\link.3892.read.1.tlog
+c:\users\xcy\documents\github\trackers\vs2013\debug\trackers.tlog\link.3892.write.1.tlog
 c:\users\xcy\documents\github\trackers\vs2013\debug\trackers.tlog\link.command.1.tlog
 c:\users\xcy\documents\github\trackers\vs2013\debug\trackers.tlog\link.read.1.tlog
 c:\users\xcy\documents\github\trackers\vs2013\debug\trackers.tlog\link.write.1.tlog

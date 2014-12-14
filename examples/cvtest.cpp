@@ -3,7 +3,6 @@
 #include <opencv2/opencv.hpp>
 #include <fstream>
 #include <time.h> 
-
 using namespace cv;
 //#include "utils.h"
 
@@ -31,13 +30,16 @@ bool readFrame(Mat& frame)
 }
 */
 int main(int argc, char** argv )
+//int APIENTRY WinMain( HINSTANCE hCurrentInst, HINSTANCE hPreviousInst, LPSTR lpszCmdLine, int nCmdShow)
 {
 	namedWindow("result");
 while(1)
 {
 	std::string vidfname = argv[1];
-	std::string gtdir="";
-	int bgmod =  stoi(argv[2]);
+	std::string gtdir = "", gtbasedir("C:\\Users\\xcy\\Documents\\CVProject\\data\\label_company\\labels\\"), basedirsufix("txt\\");
+	std::string vidid = vidfname.substr(vidfname.length() - 10, 6);
+	gtdir = gtbasedir + vidid + basedirsufix;
+	int bgmod = stoi(argv[2]);
 	VideoCapture cap;
 	int frameidx=0;
 	char fnamestr[100];
@@ -82,7 +84,14 @@ while(1)
 	Mat frameScale(vidHeight*dispScale,vidWidth*dispScale,CV_8UC3);
 	while(~frame.empty())
 	{
+		std::cout << frameidx << std::endl;
 		//cap.read(frame);
+		if ((frameidx - 50) % 1500 == 0)
+		{
+			sprintf(fnamestr, "%06d.txt", frameidx);
+			std::string gtfname = gtdir + fnamestr;
+			tracker->initGT(gtfname);
+		}
 		cvtColor(frame,gray,CV_BGR2GRAY);
 		if(bgmod==2)
 		{

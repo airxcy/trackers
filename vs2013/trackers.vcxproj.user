@@ -5,4 +5,9 @@
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
     <LocalDebuggerCommandArguments>"C:\\Users\\xcy\\Documents\\CVProject\\data\\label_company\\200412.avi" 0</LocalDebuggerCommandArguments>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LocalDebuggerEnvironment>PATH=%PATH%;C:\opencv\build\x86\vc12\bin</LocalDebuggerEnvironment>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerCommandArguments>"C:\\Users\\xcy\\Documents\\CVProject\\data\\label_company\\200412.avi" 0</LocalDebuggerCommandArguments>
+  </PropertyGroup>
 </Project>

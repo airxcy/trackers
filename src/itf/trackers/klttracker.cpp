@@ -16,6 +16,7 @@ char strbuff[100];
 
 int KLTtracker::init(int bsize,int w,int h)
 {
+	
 	nFeatures = 1000;
 	FOREGROUND_THRESHOLD = 0;
 	isTracking = (int*)malloc(sizeof(int) * nFeatures);
@@ -25,7 +26,8 @@ int KLTtracker::init(int bsize,int w,int h)
 	{
 		isTracking[i]=0;
 		trkIndex[i]=0;
-		trackBuff[i].init(3,10);
+		//trackBuff[i].init(3,10);
+		trackBuff[i].init(1,100);
 	}
 	frame_width = w;
 	frame_height = h;
@@ -43,6 +45,7 @@ int KLTtracker::init(int bsize,int w,int h)
 	drawW=frame_width,drawH=frame_height;
 	bgMod=0;
 	delay=0;
+	gt_inited = false;
 	return 1;
 }
 int KLTtracker::selfinit(unsigned char* framedata)
@@ -62,13 +65,50 @@ int KLTtracker::selfinit(unsigned char* framedata)
 			int y = (int) (fl->feature[k]->y+0.5);
 			int val= (int) (fl->feature[k]->val);
 			int ptmp[3]={x,y,val};
+
+			pttmp.x = (int)(fl->feature[k]->x + 0.5);
+			pttmp.y = (int)(fl->feature[k]->y + 0.5);
+			pttmp.t = (int)(frameidx + 0.5);
 			//trackBuff[k].updateAFrame(x,y,frameidx);
-			trackBuff[k].updateAFrame(ptmp);
+			trackBuff[k].updateAFrame(&pttmp);
 		}
 	}
-
 	return true;
 }
+
+int KLTtracker::initGT(string & gtfilename)
+{
+	std::cout << gtfilename << std::endl;
+	if (gtfilename.length()>1)
+	{
+		//goodFeaturesToTrack(gray, points[0], MAX_COUNT, 0.01, 0, Mat(), 10, 0, 0.04);
+		char strbuf[100];
+		int x, y;
+		int pos[2], bb[4];
+		std::ifstream txtfile(gtfilename);
+		if (txtfile.is_open())
+		{
+			txtfile.getline(strbuf, 100);
+			bbw = 40, bbh = 100;
+			sscanf_s(strbuf, "%d", &gt_N);
+			std::cout << gtfilename << "gt:" << gt_N << std::endl;
+			targetLoc.init(2, gt_N);
+			targetBB.init(4, gt_N);
+			for (int gt_i = 0; gt_i < gt_N; gt_i++)
+			{
+				txtfile.getline(strbuf, 100);
+				sscanf_s(strbuf, "%d,%d", pos, pos + 1);
+				std::cout << pos[0] <<","<<pos[1]<< std::endl;
+				targetLoc.updateAFrame(pos);
+				bb[0] = pos[0] - bbw / 2, bb[1] = pos[1] - bbh / 10, bb[2] = pos[0] + bbw / 2, bb[3] = pos[1] + bbh * 9 / 10;
+				targetBB.updateAFrame(bb);
+			}
+			gt_inited = true;
+		}
+	}
+	return 1;
+}
+
 int KLTtracker::initBG(int mode,unsigned char* bgptr)
 {
 	bgMod=mode;
@@ -102,14 +142,14 @@ bool KLTtracker::checkTrackMoving(TrackBuff &strk)
 	int Movelen=15,minlen=5,startidx=max(strk.len-Movelen,0);
 	double maxdist = .0, dtmp = .0,totlen=.0;
 
-	int * aptr=strk.getPtr(0),*bptr=aptr;
+	TrkPts* aptr = strk.getPtr(0), *bptr = aptr;
 	//int xa=(*aptr),ya=(*(aptr+1)),xb=*(strk.cur_frame_ptr),yb=*(strk.cur_frame_ptr+1);
-	int xa=aptr[0],ya=aptr[1],xb=strk.cur_frame_ptr[0],yb=strk.cur_frame_ptr[1];
+	int xa=aptr->x,ya=aptr->y,xb=strk.cur_frame_ptr->x,yb=strk.cur_frame_ptr->y;
 	double displc=sqrt( pow(xb-xa, 2.0) + pow(yb-ya, 2.0));
 	for(int posi=0;posi<strk.len;posi++)
 	{
 		bptr=strk.getPtr(posi);
-		xb=bptr[0],yb=bptr[1];
+		xb=bptr->x,yb=bptr->y;
 		dtmp = sqrt( pow(xb-xa, 2.0) + pow(yb-ya, 2.0));
 		totlen+=dtmp;
 		if (dtmp > maxdist&&posi>=startidx) maxdist = dtmp;
@@ -138,7 +178,11 @@ int KLTtracker::updateAframe(unsigned char* framedata)
 			int val= (int) (fl->feature[k]->val);
 			int ptmp[3]={x,y,val};
 			//trackBuff[k].updateAFrame(x,y,frameidx);
-			trackBuff[k].updateAFrame(ptmp);
+			pttmp.x = (int)(fl->feature[k]->x + 0.5);
+			pttmp.y = (int)(fl->feature[k]->y + 0.5);
+			pttmp.t = (int)(frameidx + 0.5);
+			//trackBuff[k].updateAFrame(x,y,frameidx);
+			trackBuff[k].updateAFrame(&pttmp);
 
 			bool isMoving=checkTrackMoving(trackBuff[k]);
 			if (!isMoving) 
@@ -156,7 +200,11 @@ int KLTtracker::updateAframe(unsigned char* framedata)
 			int ptmp[3]={x,y,val};
 
 			//trackBuff[k].updateAFrame(x,y,frameidx);
-			trackBuff[k].updateAFrame(ptmp);
+			pttmp.x = (int)(fl->feature[k]->x + 0.5);
+			pttmp.y = (int)(fl->feature[k]->y + 0.5);
+			pttmp.t = (int)(frameidx + 0.5);
+			//trackBuff[k].updateAFrame(x,y,frameidx);
+			trackBuff[k].updateAFrame(&pttmp);
 			isTracking[k]=1;
 		}
 		if ( fl->feature[k]->val < 0)
@@ -200,9 +248,9 @@ void KLTtracker::drawStuff(unsigned char* cfarmeptr)
 		{
 			for (int j = 1; j <trackBuff[i].len; ++j)
 			{
-				int *aptr=trackBuff[i].getPtr(j-1);
-				int *bptr=trackBuff[i].getPtr(j);
-				drawline(cfarmeptr,aptr[0],aptr[1],bptr[0],bptr[1],_line_colos[i%6]);
+				TrkPts *aptr = trackBuff[i].getPtr(j - 1);
+				TrkPts *bptr = trackBuff[i].getPtr(j);
+				drawline(cfarmeptr,aptr->x,aptr->y,bptr->x,bptr->y,_line_colos[i%6]);
 			}
 		}
 	}
@@ -210,62 +258,39 @@ void KLTtracker::drawStuff(unsigned char* cfarmeptr)
 
 int checkidx=720, checkx=0,checky=0,checkt=0;
 vector<int> idxvec;
+bool KLTtracker::checkCurve(TrackBuff &strk)
+{
+	double maxdist = .0, dtmp = .0, totlen = .0;
+	TrkPts * aptr = strk.getPtr(0), *bptr = aptr;
+	int xa = aptr->x, ya = aptr->y, xb = strk.cur_frame_ptr->x, yb = strk.cur_frame_ptr->y;
+	double displc = sqrt(pow(xb - xa, 2.0) + pow(yb - ya, 2.0));
+	for (int j = 1; j <strk.len; ++j)
+	{
+		aptr = strk.getPtr(j - 1);
+		bptr = strk.getPtr(j);
+		dtmp = sqrt(pow(bptr->x - aptr->x, 2.0) + pow(bptr->y - aptr->y, 2.0));
+		totlen += dtmp;
+		if (dtmp>maxdist)maxdist = dtmp;
+	}
+	sprintf(strbuff, "%.1f,%.1f\0", displc, totlen);
+	return (strk.len > 20 && totlen*0.5 > displc);
+}
 void KLTtracker::drawStuffScale(unsigned char* cfarmeptr,int w,int h)
 {
 	drawW=w,drawH=h;
-	double scaleW=((double)drawW)/((double)frame_width);
-	double scaleH=((double)drawH)/((double)frame_height);
+	scaleW=((double)drawW)/((double)frame_width);
+	scaleH=((double)drawH)/((double)frame_height);
 	Mat	 frameMat(drawH, drawW, CV_8UC3, cfarmeptr);
-	/*
-	if(checkt==0&&trackBuff[checkidx].len>10)
-	{
-		checkx=*(trackBuff[checkidx].cur_frame_ptr);
-		checky=*(trackBuff[checkidx].cur_frame_ptr+1);
-		checkt++;
-		idxvec=vector<int>(0);
-		idxvec.push_back(checkidx);
-	}
-	*/
+	TrkPts * aptr, *bptr;
+	int xa, ya, xb, yb;
 	for (int i = 0; i < nFeatures; ++i)
 	{
-		/*
-		int sx=*(trackBuff[i].cur_frame_ptr);
-		int sy=*(trackBuff[i].cur_frame_ptr+1);
-		bool wantcheck=false;
-		for(int ii=0;ii<idxvec.size();ii++)
-		{
-			if(i==idxvec[ii])
-			{
-				wantcheck=true;
-			}
-		}
-		if(!wantcheck&&sx==checkx&&sy==checky)
-		{
-			idxvec.push_back(i);
-			wantcheck=true;
-		}
-		*/
 		if (trackBuff[i].len > 5 )//&& isTracking[i])
 		{
-			double maxdist = .0, dtmp = .0,totlen=.0;	
-			int * aptr=trackBuff[i].getPtr(0),*bptr=aptr;
-			int xa=aptr[0],ya=aptr[1],xb=trackBuff[i].cur_frame_ptr[0],yb=trackBuff[i].cur_frame_ptr[1];
-			double displc=sqrt( pow(xb-xa, 2.0) + pow(yb-ya, 2.0));
-			for (int j = 1; j <trackBuff[i].len; ++j)
-			{
-				aptr=trackBuff[i].getPtr(j-1);
-				bptr=trackBuff[i].getPtr(j);
-				xa=aptr[0]*scaleW,xb=bptr[0]*scaleW,ya=aptr[1]*scaleH,yb=bptr[1]*scaleH;
-				//drawline(cfarmeptr,xa,ya,xb,yb,_line_colos[i%6]);
-				dtmp= sqrt( pow(bptr[0]-aptr[0], 2.0) + pow(bptr[1]-aptr[1], 2.0));
-				totlen+=dtmp;
-				if(dtmp>maxdist)maxdist=dtmp;
-			}
+
 			unsigned char rgb[3]={_line_colos[i%6][0],_line_colos[i%6][1],_line_colos[i%6][2]};
-			if(trackBuff[i].len>20 && totlen*0.5>displc)
-			{
-			}
-			else
+			//if(trackBuff[i].len>20 && totlen*0.5>displc)
+			if(!checkCurve(trackBuff[i]))
 			{
 				rgb[0]=((float)rgb[0]/3);
 				rgb[1]=((float)rgb[1]/3);
@@ -275,13 +300,39 @@ void KLTtracker::drawStuffScale(unsigned char* cfarmeptr,int w,int h)
 			{
 				aptr=trackBuff[i].getPtr(j-1);
 				bptr=trackBuff[i].getPtr(j);
-				xa=aptr[0]*scaleW,xb=bptr[0]*scaleW,ya=aptr[1]*scaleH,yb=bptr[1]*scaleH;
+				xa=aptr->x*scaleW,xb=bptr->x*scaleW,ya=aptr->y*scaleH,yb=bptr->y*scaleH;
 				drawline(cfarmeptr,xa,ya,xb,yb,rgb);
 			}
-			sprintf(strbuff,"%.1f,%.1f",displc,totlen);
 			putText(frameMat,strbuff, Point(xb,yb), FONT_HERSHEY_SIMPLEX, 0.4, Scalar(rgb[0],rgb[1],rgb[2]));
 		}
 	}
+	drawBox(cfarmeptr, w, h);
+}
+void KLTtracker::drawBox(unsigned char* cfarmeptr, int w, int h)
+{
+	if (gt_inited)
+	{
+		Mat	 frameMat(drawH, drawW, CV_8UC3, cfarmeptr);
+		for (int i = 0; i < gt_N; ++i)
+		{
+			int* bb = targetBB.getPtr(i);
+			int left = bb[0] * scaleW, top = bb[1] * scaleH, right = bb[2] * scaleW, bottom = bb[3] * scaleH;
+			unsigned char rgb[3] = { _line_colos[i % 6][0], _line_colos[i % 6][1], _line_colos[i % 6][2] };
+			for (int x = left; x < right; x++)
+				for (int y = top; y < bottom; y++)
+				{
+					if (x >= 0 && x < drawW&&y >= 0 && y < drawH)
+					{
+						int offset = (y*drawW + x);
+						cfarmeptr[offset * 3] = (cfarmeptr[offset * 3] * 225 + rgb[0]*30) / 255;
+						cfarmeptr[offset * 3 + 1] = (cfarmeptr[offset * 3 + 1] * 225 + rgb[1]*30) / 255;
+						cfarmeptr[offset * 3 + 2] = (cfarmeptr[offset * 3 + 2] * 225 + rgb[2]*30) / 255;
+					}
+				}
+		}
+		waitKey(0);
+	}
+	
 }
 int KLTtracker::endTraking()
 {
